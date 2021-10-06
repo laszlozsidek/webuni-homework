@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: smart
+hr:
+  salary:
+    years:
+      limit1: 2.5
+      limit2: 5
+      limit3: 10
