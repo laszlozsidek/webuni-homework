@@ -4,6 +4,11 @@ spring:
 hr:
   salary:
     years:
-      limit1: 2.5
-      limit2: 5
-      limit3: 10
+      year1: 2.5
+      year2: 5
+      year3: 10
+    percent:
+      percent1: 0
+      percent2: 2
+      percent3: 5
+      percent4: 10

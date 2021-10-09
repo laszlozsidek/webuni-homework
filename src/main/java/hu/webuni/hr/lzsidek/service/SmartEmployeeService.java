@@ -24,14 +24,14 @@ public class SmartEmployeeService implements EmployeeService {
 
         if ((monthDiff == 0 && dayDiff < 0) || monthDiff < 0)
             throw new IllegalArgumentException("Invalid StartDateTimeOfWork date");
-        if (monthDiff >= 0 && monthDiff < MONTHS * config.getLimit1() || (monthDiff == MONTHS * config.getLimit1() && dayDiff <= 0))
-            return 0;
-        if ((monthDiff >= MONTHS * config.getLimit1() && monthDiff < MONTHS * config.getLimit2()) || (monthDiff == MONTHS * config.getLimit2() && dayDiff <= 0))
-            return 2;
-        if ((monthDiff >= MONTHS * config.getLimit2() && monthDiff < MONTHS * config.getLimit3()) || (monthDiff == MONTHS * config.getLimit3() && dayDiff <= 0))
-            return 5;
-        if (monthDiff >= MONTHS * config.getLimit3())
-            return 10;
+        if (monthDiff >= 0 && monthDiff < MONTHS * config.getYears().getYear1() || (monthDiff == MONTHS * config.getYears().getYear1() && dayDiff <= 0))
+            return config.getPercent().getPercent1();
+        if ((monthDiff >= MONTHS * config.getYears().getYear1() && monthDiff < MONTHS * config.getYears().getYear2()) || (monthDiff == MONTHS * config.getYears().getYear2() && dayDiff <= 0))
+            return config.getPercent().getPercent2();
+        if ((monthDiff >= MONTHS * config.getYears().getYear2() && monthDiff < MONTHS * config.getYears().getYear3()) || (monthDiff == MONTHS * config.getYears().getYear3() && dayDiff <= 0))
+            return config.getPercent().getPercent3();
+        if (monthDiff >= MONTHS * config.getYears().getYear3())
+            return config.getPercent().getPercent4();
         return -1;
     }
 }
