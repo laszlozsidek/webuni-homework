@@ -1,44 +1,57 @@
 package hu.webuni.hr.lzsidek.web;
 
-import hu.webuni.hr.lzsidek.model.Employee;
-import hu.webuni.hr.lzsidek.service.SalaryService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import hu.webuni.hr.lzsidek.dto.EmployeeDto;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-@Controller
+@RestController
+@RequestMapping("/api/employees")
 public class EmployeeController {
+    private Map<Long, EmployeeDto> employees = new HashMap<>();
 
-    @Autowired
-    SalaryService salaryService;
-    private List<Employee> employees = new ArrayList<>();
-
-    {
-        employees.add(new Employee(1L, "A.Stark", "CEO", LocalDateTime.of(2019,4,6,0,0)));
-        employees.add(new Employee(2L, "N.Romanoff", "CIO", LocalDateTime.of(2016,10,6,0,0)));
-        employees.add(new Employee(3L, "S.Rogers", "COO", LocalDateTime.of(2016,2,2,0,0)));
-        employees.add(new Employee(4L, "B.Banner", "CIT", LocalDateTime.of(2010,2,2,0,0)));
+    @GetMapping
+    public List<EmployeeDto> getAll(@RequestParam(required = false) Integer minSalary) {
+        return
+            minSalary == null
+                ? new ArrayList<>(employees.values())
+                : employees.values().stream().filter(e -> e.getDtoSalary() > minSalary).collect(Collectors.toList());
     }
 
-    @GetMapping("/")
-    public String home(Map<String, Object> model) {
-        for (Employee employee : employees) {
-            salaryService.setSalaryOfNewEmployee(employee);
+    @GetMapping("/{id}")
+    public ResponseEntity<EmployeeDto> getById(@PathVariable long id) {
+        if (employees.get(id) != null) {
+            return new ResponseEntity<>(employees.get(id), HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
         }
-        model.put("employees", employees);
-        model.put("newEmployee", new Employee());
-        return "index";
     }
 
-    @PostMapping("/")
-    public String addEmployee(Employee employee) {
-        employees.add(employee);
-        return "redirect:";
+    @PostMapping
+    public EmployeeDto createEmployee(@RequestBody EmployeeDto employeeDto) {
+        employees.put(employeeDto.getDtoId(), employeeDto);
+        return employeeDto;
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable long id, @RequestBody EmployeeDto employeeDto) {
+        if (!employees.containsKey(id)) {
+            return ResponseEntity.notFound().build();
+        } else {
+            employeeDto.setDtoId(id);
+            employees.put(id, employeeDto);
+            return ResponseEntity.ok(employeeDto);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable long id) {
+        employees.remove(id);
     }
 }

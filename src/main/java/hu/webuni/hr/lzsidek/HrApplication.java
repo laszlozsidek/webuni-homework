@@ -1,15 +1,13 @@
 package hu.webuni.hr.lzsidek;
 
-import hu.webuni.hr.lzsidek.service.SalaryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class HrApplication /*implements CommandLineRunner*/ {
 
-	@Autowired
-	SalaryService salaryService;
+//	@Autowired
+//	SalaryService salaryService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(HrApplication.class, args);

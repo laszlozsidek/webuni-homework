@@ -15,14 +15,6 @@ public class Employee {
     public Employee() {
     }
 
-//    public Employee(Long id, String name, String position, String startDateTimeOfWork) {
-//        this.id = id;
-//        this.name = name;
-//        this.position = position;
-//        String[] split = startDateTimeOfWork.split("-");
-//        this.startDateTimeOfWork = LocalDateTime.of(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]), 0, 0);
-//    }
-
     public Employee(Long id, String name, String position, LocalDateTime startDateTimeOfWork) {
         this.id = id;
         this.name = name;
