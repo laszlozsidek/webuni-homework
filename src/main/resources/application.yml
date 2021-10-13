@@ -1,6 +1,14 @@
 spring:
   profiles:
     active: smart
+
+thymeleaf:
+  cache: false
+
+#mvc:
+#  format:
+#    date-time: yyyy-MM-dd HH:mm:ss
+
 hr:
   salary:
     years:

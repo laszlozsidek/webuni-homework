@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>HR application</title>
+</head>
+<body>
+<h1>Welcome to the HR application</h1>
+
+<h3>List of employees:</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Position</th>
+        <th>Salary</th>
+        <th>Start of work</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.id}">id</td>
+        <td th:text="${employee.name}">name</td>
+        <td th:text="${employee.position}">position</td>
+        <td th:text="${employee.salary}">salary</td>
+        <td th:text="${employee.startDateTimeOfWork}">startOfWork</td>
+    </tr>
+    </tbody>
+</table>
+
+<h3>New employee:</h3>
+<form th:action="@{/}" method="post" th:object="${newEmployee}">
+    <table>
+        <tr><td>Id:</td><td><input th:field="*{id}"/></td></tr>
+        <tr><td>Name:</td><td><input th:field="*{name}"/></td></tr>
+        <tr><td>Position:</td><td><input th:field="*{position}"/></td></tr>
+        <tr><td>Start of work:</td><td><input type="datetime-local" th:field="*{startDateTimeOfWork}"/></td></tr>
+        <tr><td><input type="submit" value="Add"></td></tr>
+<!--    Id: <input th:field="*{id}"/><br/>-->
+<!--    Name: <input th:field="*{name}"/><br/>-->
+<!--    Position: <input th:field="*{position}"/><br/>-->
+<!--    Start of work: <input type="datetime-local" th:field="*{startDateTimeOfWork}"/><br/>-->
+<!--    <input type="submit" value="Add">-->
+    </table>
+</form>
+
+</body>
+</html>
