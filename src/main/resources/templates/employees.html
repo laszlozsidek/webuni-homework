@@ -37,7 +37,7 @@
 <h3>New employee:</h3>
 <form th:action="@{/employees}" method="post" th:object="${newEmployee}">
     <table>
-        <tr><td>Id:</td><td><input th:field="*{id}"/></td></tr>
+        <tr><td>Id:</td><td><input type="number" th:field="*{id}"/></td></tr>
         <tr><td>Name:</td><td><input th:field="*{name}"/></td></tr>
         <tr><td>Position:</td><td><input th:field="*{position}"/></td></tr>
         <tr><td>Start of work:</td><td><input type="datetime-local" th:field="*{startDateTimeOfWork}"/></td></tr>

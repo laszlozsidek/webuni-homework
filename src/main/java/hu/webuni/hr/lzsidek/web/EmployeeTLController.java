@@ -26,6 +26,8 @@ public class EmployeeTLController {
         employees.put(4L, new Employee(4L, "B.Banner", "CIT", LocalDateTime.of(2010,2,2,0,0)));
     }
 
+    // <employees>
+
     @GetMapping("/employees")
     public String home(Map<String, Object> model) {
         for (Employee employee : employees.values()) {
@@ -33,18 +35,51 @@ public class EmployeeTLController {
         }
         model.put("employees", employees);
         model.put("newEmployee", new Employee());
-        return "index";
+        return "employees";
     }
 
     @PostMapping("/employees")
     public String addEmployee(Employee employee) {
-        employees.put(employee.getId(), employee);
+        Long max;
+        if (!employees.containsKey(employee.getId()) && employee.getId() != null) {
+            max = employee.getId();
+        } else {
+            max = employees.keySet().stream().max(Double::compare).get() + 1;
+            employee.setId(max);
+        }
+        employees.put(max, employee);
         return "redirect:employees";
     }
 
+    @GetMapping("/employees/{id}/delete")
+    public String deleteEmployee(@PathVariable long id) {
+        employees.remove(id);
+        return "redirect:/employees";
+    }
+
+    // </employees>
+
+    // <employee>
+
     @GetMapping("/employees/{id}")
-    public String editEmployee(@PathVariable long id, Map<String, Object> model) {
-        model.put("edited_employee", employees.get(id));
+    public String getEmployeeToEdit(@PathVariable long id, Map<String, Object> model) {
+        model.put("employee_to_edit", employees.get(id));
         return "employee";
     }
+
+    @PostMapping(value="/employees/{id}/edit", params = "submit")
+    public String editEmployee(@PathVariable long id, Employee modifiedEmployee) {
+        Employee employee = employees.get(id);
+        employee.setName(modifiedEmployee.getName());
+        employee.setPosition(modifiedEmployee.getPosition());
+        employee.setStartDateTimeOfWork(modifiedEmployee.getStartDateTimeOfWork());
+        return "redirect:/employees";
+    }
+
+    @PostMapping(value="/employees/{id}/edit", params = "cancel")
+    public String editEmployee() {
+        return "redirect:/employees";
+    }
+
+    // </employee>
 }

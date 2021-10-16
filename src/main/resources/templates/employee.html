@@ -5,17 +5,20 @@
     <title>HR application</title>
 </head>
 <body>
-<h1 th:object="${edited_employee}" th:text="'Edit details of employee ' + *{name}">Employee</h1>
+<h1 th:object="${employee_to_edit}" th:text="'Edit details of employee ' + *{name}">Employee</h1>
 
-<!--<h3>Edit employee:</h3>-->
-<!--<form th:action="@{/employee}" method="put" th:object="${newEmployee}">-->
-<!--    <table>-->
-<!--        <tr><td>Name:</td><td><input th:field="*{name}"/></td></tr>-->
-<!--        <tr><td>Position:</td><td><input th:field="*{position}"/></td></tr>-->
-<!--        <tr><td>Start of work:</td><td><input type="datetime-local" th:field="*{startDateTimeOfWork}"/></td></tr>-->
-<!--        <tr><td><input type="submit" value="Save changes"></td></tr>-->
-<!--    </table>-->
-<!--</form>-->
+<h3>Edit employee:</h3>
+<form th:action="@{'/employees/' + *{id} + '/edit'}" method="post" th:object="${employee_to_edit}">
+    <table>
+        <tr><td>Name:</td><td><input th:field="*{name}"/></td></tr>
+        <tr><td>Position:</td><td><input th:field="*{position}"/></td></tr>
+        <tr><td>Start of work:</td><td><input type="datetime-local" th:field="*{startDateTimeOfWork}"/></td></tr>
+        <tr>
+            <td style="text-align:left"><input type="submit" value="Cancel" name="cancel"></td>
+            <td style="text-align:right"><input type="submit" value="Save changes" name="save"></td>
+        </tr>
+    </table>
+</form>
 
 </body>
 </html>
