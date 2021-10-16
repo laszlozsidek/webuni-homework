@@ -20,17 +20,22 @@
     </thead>
     <tbody>
     <tr th:each="employee : ${employees}">
-        <td th:text="${employee.id}">id</td>
-        <td th:text="${employee.name}">name</td>
-        <td th:text="${employee.position}">position</td>
-        <td th:text="${employee.salary}">salary</td>
-        <td th:text="${employee.startDateTimeOfWork}">startOfWork</td>
+        <td th:text="${employee.value.id}">id</td>
+        <td>
+            <a th:text="${employee.value.name}" th:href="@{'employees/' + ${employee.value.id}}">name</a>
+        </td>
+        <td th:text="${employee.value.position}">position</td>
+        <td th:text="${employee.value.salary}">salary</td>
+        <td th:text="${employee.value.startDateTimeOfWork}">startOfWork</td>
+        <td>
+            <a th:href="@{'employees/' + ${employee.value.id}} + '/delete'">Delete</a>
+        </td>
     </tr>
     </tbody>
 </table>
 
 <h3>New employee:</h3>
-<form th:action="@{/}" method="post" th:object="${newEmployee}">
+<form th:action="@{/employees}" method="post" th:object="${newEmployee}">
     <table>
         <tr><td>Id:</td><td><input th:field="*{id}"/></td></tr>
         <tr><td>Name:</td><td><input th:field="*{name}"/></td></tr>
