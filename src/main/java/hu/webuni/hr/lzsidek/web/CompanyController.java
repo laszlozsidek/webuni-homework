@@ -95,7 +95,7 @@ public class CompanyController {
         return companies.get(id);
     }
 
-    @DeleteMapping("/{company_id}/{employee_id}")
+    @DeleteMapping("/{company_id}/deleteEmployee/{employee_id}")
     public ResponseEntity<FullCompanyDto> deleteEmployeeFromCompany(@PathVariable long company_id, @PathVariable long employee_id) {
         List<EmployeeDto> collectedEmployee =
                 companies.get(company_id)
@@ -104,6 +104,16 @@ public class CompanyController {
                         .filter(e -> e.getDtoId() == employee_id).collect(Collectors.toList());
         if (!collectedEmployee.isEmpty()) {
             companies.get(company_id).getEmployees().remove(collectedEmployee.get(0));
+            return new ResponseEntity(companies.get(company_id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{company_id}/updateEmployees")
+    public ResponseEntity<FullCompanyDto> updateEmployees(@PathVariable long company_id, @RequestBody List<EmployeeDto> newEmployeeList) {
+        if (companies.get(company_id) != null) {
+            companies.get(company_id).setEmployees(newEmployeeList);
             return new ResponseEntity(companies.get(company_id), HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
