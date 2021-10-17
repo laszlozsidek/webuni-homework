@@ -7,17 +7,15 @@ public class CompanyDto {
     private String registryNumber;
     private String name;
     private String address;
-    private List<EmployeeDto> employees;
 
     public CompanyDto() {
     }
 
-    public CompanyDto(Long id, String registryNumber, String name, String address, List<EmployeeDto> employees) {
+    public CompanyDto(Long id, String registryNumber, String name, String address) {
         this.id = id;
         this.registryNumber = registryNumber;
         this.name = name;
         this.address = address;
-        this.employees = employees;
     }
 
     public Long getId() {
@@ -50,13 +48,5 @@ public class CompanyDto {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public List<EmployeeDto> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<EmployeeDto> employees) {
-        this.employees = employees;
     }
 }
