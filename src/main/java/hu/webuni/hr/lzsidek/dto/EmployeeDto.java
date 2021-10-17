@@ -12,6 +12,9 @@ public class EmployeeDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dtoStartDateTimeOfWork;
 
+    public EmployeeDto() {
+    }
+
     public EmployeeDto(long dtoId, String dtoName, String dtoPosition, int dtoSalary, LocalDateTime dtoStartDateTimeOfWork) {
         this.dtoId = dtoId;
         this.dtoName = dtoName;
