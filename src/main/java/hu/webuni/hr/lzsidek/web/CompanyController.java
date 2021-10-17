@@ -33,7 +33,7 @@ public class CompanyController {
 
         companies.put(1L, new FullCompanyDto(1L, "R834724324-545", "Amazon", "Seattle, Washington, USA", employees1));
         companies.put(2L, new FullCompanyDto(2L, "R962422545-615", "Google", "Mountain View, California, USA", employees2));
-        companies.put(3L, new FullCompanyDto(3L, "R276411145-158", "Facebook", "Palo Alto, Kalifornia, Menlo Park, USA", employees3));
+        companies.put(3L, new FullCompanyDto(3L, "R276411145-158", "Facebook", "Menlo Park, Palo Alto, California, USA", employees3));
     }
 
     @GetMapping
