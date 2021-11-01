@@ -1,58 +1,62 @@
 package hu.webuni.hr.lzsidek.web;
 
 import hu.webuni.hr.lzsidek.dto.EmployeeDto;
+import hu.webuni.hr.lzsidek.mapper.EmployeeMapper;
+import hu.webuni.hr.lzsidek.model.Employee;
+import hu.webuni.hr.lzsidek.service.EmployeeMapperService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeeController {
-    private Map<Long, EmployeeDto> employees = new HashMap<>();
+
+    @Autowired
+    EmployeeMapper employeeMapper;
+
+    @Autowired
+    EmployeeMapperService employeeMapperService;
 
     @GetMapping
     public List<EmployeeDto> getAll(@RequestParam(required = false) Integer minSalary) {
-        return
-            minSalary == null
-                ? new ArrayList<>(employees.values())
-                : employees.values().stream().filter(e -> e.getDtoSalary() > minSalary).collect(Collectors.toList());
+        return employeeMapper.employeesToDTOs(employeeMapperService.findAll(minSalary));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDto> getById(@PathVariable long id) {
-        if (employees.get(id) != null) {
-            return new ResponseEntity<>(employees.get(id), HttpStatus.OK);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public EmployeeDto getById(@PathVariable long id) {
+        checkEmployeeId(id);
+        return employeeMapper.employeeToDTO(employeeMapperService.find(id));
     }
 
     @PostMapping
     public EmployeeDto createEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
-        employees.put(employeeDto.getDtoId(), employeeDto);
-        return employeeDto;
+        Employee employee = employeeMapperService.save(employeeMapper.DTOToEmployee(employeeDto));
+        return employeeMapper.employeeToDTO(employee);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable long id, @RequestBody @Valid EmployeeDto employeeDto) {
-        if (!employees.containsKey(id)) {
-            return ResponseEntity.notFound().build();
-        } else {
-            employeeDto.setDtoId(id);
-            employees.put(id, employeeDto);
-            return ResponseEntity.ok(employeeDto);
-        }
+    public EmployeeDto updateEmployee(@PathVariable long id, @RequestBody @Valid EmployeeDto employeeDto) {
+        checkEmployeeId(id);
+        employeeDto.setId(id);
+        Employee employee = employeeMapperService.save(employeeMapper.DTOToEmployee(employeeDto));
+        return employeeMapper.employeeToDTO(employee);
+
     }
 
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable long id) {
-        employees.remove(id);
+        checkEmployeeId(id);
+        employeeMapperService.remove(id);
+    }
+
+    private void checkEmployeeId(long id) {
+        if (employeeMapperService.find(id) == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 }

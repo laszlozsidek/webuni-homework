@@ -8,65 +8,65 @@ import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 public class EmployeeDto {
-    private long dtoId;
+    private long id;
     @NotEmpty
-    private String dtoName;
+    private String name;
     @NotEmpty
-    private String dtoPosition;
+    private String position;
     @Positive
-    private int dtoSalary;
+    private int salary;
     @Past
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
-    private LocalDateTime dtoStartDateTimeOfWork;
+    private LocalDateTime startDateTimeOfWork;
 
     public EmployeeDto() {
     }
 
-    public EmployeeDto(long dtoId, String dtoName, String dtoPosition, int dtoSalary, LocalDateTime dtoStartDateTimeOfWork) {
-        this.dtoId = dtoId;
-        this.dtoName = dtoName;
-        this.dtoPosition = dtoPosition;
-        this.dtoSalary = dtoSalary;
-        this.dtoStartDateTimeOfWork = dtoStartDateTimeOfWork;
+    public EmployeeDto(long id, String name, String position, int salary, LocalDateTime startDateTimeOfWork) {
+        this.id = id;
+        this.name = name;
+        this.position = position;
+        this.salary = salary;
+        this.startDateTimeOfWork = startDateTimeOfWork;
     }
 
-    public long getDtoId() {
-        return dtoId;
+    public long getId() {
+        return id;
     }
 
-    public void setDtoId(long dtoId) {
-        this.dtoId = dtoId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getDtoName() {
-        return dtoName;
+    public String getName() {
+        return name;
     }
 
-    public void setDtoName(String dtoName) {
-        this.dtoName = dtoName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDtoPosition() {
-        return dtoPosition;
+    public String getPosition() {
+        return position;
     }
 
-    public void setDtoPosition(String dtoPosition) {
-        this.dtoPosition = dtoPosition;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public int getDtoSalary() {
-        return dtoSalary;
+    public int getSalary() {
+        return salary;
     }
 
-    public void setDtoSalary(int dtoSalary) {
-        this.dtoSalary = dtoSalary;
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 
-    public LocalDateTime getDtoStartDateTimeOfWork() {
-        return dtoStartDateTimeOfWork;
+    public LocalDateTime getStartDateTimeOfWork() {
+        return startDateTimeOfWork;
     }
 
-    public void setDtoStartDateTimeOfWork(LocalDateTime dtoStartDateTimeOfWork) {
-        this.dtoStartDateTimeOfWork = dtoStartDateTimeOfWork;
+    public void setStartDateTimeOfWork(LocalDateTime startDateTimeOfWork) {
+        this.startDateTimeOfWork = startDateTimeOfWork;
     }
 }

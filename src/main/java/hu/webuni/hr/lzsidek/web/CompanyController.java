@@ -83,13 +83,13 @@ public class CompanyController {
         final Long[] max = {0L};
         companies.values().forEach(c -> {
             c.getEmployees().forEach(e -> {
-                if (e.getDtoId() > max[0]) {
-                    max[0] = e.getDtoId();
+                if (e.getId() > max[0]) {
+                    max[0] = e.getId();
                 }
             });
         });
-        if (employee.getDtoId() <= max[0]) {
-            employee.setDtoId(max[0] + 1);
+        if (employee.getId() <= max[0]) {
+            employee.setId(max[0] + 1);
         }
         companies.get(id).getEmployees().add(employee);
         return companies.get(id);
@@ -101,7 +101,7 @@ public class CompanyController {
                 companies.get(company_id)
                         .getEmployees()
                         .stream()
-                        .filter(e -> e.getDtoId() == employee_id).collect(Collectors.toList());
+                        .filter(e -> e.getId() == employee_id).collect(Collectors.toList());
         if (!collectedEmployee.isEmpty()) {
             companies.get(company_id).getEmployees().remove(collectedEmployee.get(0));
             return new ResponseEntity(companies.get(company_id), HttpStatus.OK);
