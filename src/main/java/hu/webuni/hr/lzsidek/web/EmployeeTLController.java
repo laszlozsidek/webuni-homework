@@ -67,7 +67,7 @@ public class EmployeeTLController {
         return "employee";
     }
 
-    @PostMapping(value="/employees/{id}/edit", params = "submit")
+    @PostMapping(value="/employees/{id}/edit", params = "save")
     public String editEmployee(@PathVariable long id, Employee modifiedEmployee) {
         Employee employee = employees.get(id);
         employee.setName(modifiedEmployee.getName());

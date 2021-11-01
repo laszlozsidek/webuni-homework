@@ -2,13 +2,20 @@ package hu.webuni.hr.lzsidek.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 public class EmployeeDto {
     private long dtoId;
+    @NotEmpty
     private String dtoName;
+    @NotEmpty
     private String dtoPosition;
+    @Positive
     private int dtoSalary;
+    @Past
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dtoStartDateTimeOfWork;
 

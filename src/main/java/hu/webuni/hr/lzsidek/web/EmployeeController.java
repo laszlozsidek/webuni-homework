@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,13 +35,13 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public EmployeeDto createEmployee(@RequestBody EmployeeDto employeeDto) {
+    public EmployeeDto createEmployee(@RequestBody @Valid EmployeeDto employeeDto) {
         employees.put(employeeDto.getDtoId(), employeeDto);
         return employeeDto;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable long id, @RequestBody EmployeeDto employeeDto) {
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable long id, @RequestBody @Valid EmployeeDto employeeDto) {
         if (!employees.containsKey(id)) {
             return ResponseEntity.notFound().build();
         } else {
