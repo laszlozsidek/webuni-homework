@@ -2,9 +2,15 @@ package hu.webuni.hr.lzsidek.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
+@Entity
 public class Employee {
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private String position;

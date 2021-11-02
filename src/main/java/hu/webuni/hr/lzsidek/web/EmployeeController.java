@@ -30,7 +30,10 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public EmployeeDto getById(@PathVariable long id) {
         checkEmployeeId(id);
-        return employeeMapper.employeeToDTO(employeeMapperService.find(id));
+        return employeeMapper.employeeToDTO(
+                employeeMapperService
+                        .find(id)
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
     }
 
     @PostMapping
@@ -45,7 +48,6 @@ public class EmployeeController {
         employeeDto.setId(id);
         Employee employee = employeeMapperService.save(employeeMapper.DTOToEmployee(employeeDto));
         return employeeMapper.employeeToDTO(employee);
-
     }
 
     @DeleteMapping("/{id}")
@@ -55,7 +57,7 @@ public class EmployeeController {
     }
 
     private void checkEmployeeId(long id) {
-        if (employeeMapperService.find(id) == null) {
+        if (employeeMapperService.find(id).isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
     }
