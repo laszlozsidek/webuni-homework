@@ -5,11 +5,13 @@ import hu.webuni.hr.lzsidek.mapper.EmployeeMapper;
 import hu.webuni.hr.lzsidek.model.Employee;
 import hu.webuni.hr.lzsidek.service.EmployeeMapperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -34,6 +36,23 @@ public class EmployeeController {
                 employeeMapperService
                         .find(id)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND)));
+    }
+
+    @GetMapping(value = "/search", params = "position")
+    public List<EmployeeDto> getAllByPosition(@RequestParam(name = "position") String position) {
+        return employeeMapper.employeesToDTOs(employeeMapperService.findAllByPosition(position));
+    }
+
+    @GetMapping(value = "/search", params = "startingWith")
+    public List<EmployeeDto> findAllByNameStartingWithIgnoreCase(@RequestParam(name = "startingWith") String startingWith) {
+        return employeeMapper.employeesToDTOs(employeeMapperService.findAllByNameStartingWithIgnoreCase(startingWith));
+    }
+
+    @GetMapping("/search")
+    public List<EmployeeDto> findAllByNameStartingWithIgnoreCase(
+            @RequestParam("firstDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime firstDate,
+            @RequestParam("lastDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime lastDate) {
+        return employeeMapper.employeesToDTOs(employeeMapperService.findAllByStartDateTimeOfWorkBetween(firstDate, lastDate));
     }
 
     @PostMapping
