@@ -2,12 +2,10 @@ package hu.webuni.hr.lzsidek.service;
 
 import hu.webuni.hr.lzsidek.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
-@Primary
-public class SalaryService extends EmployeeMapperService {
+public class SalaryService {
     @Autowired
     private EmployeeService employeeService;
 
