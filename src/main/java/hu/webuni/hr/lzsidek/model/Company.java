@@ -29,6 +29,8 @@ public class Company {
         this.employees = employees;
     }
 
+    
+
     public int getRegistryNumber() {
         return registryNumber;
     }

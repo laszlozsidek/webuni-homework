@@ -29,6 +29,14 @@ public class Employee {
         this.startDateTimeOfWork = startDateTimeOfWork;
     }
 
+    public Employee(Long id, String name, String position, LocalDateTime startDateTimeOfWork, Company company) {
+        this.id = id;
+        this.name = name;
+        this.position = position;
+        this.startDateTimeOfWork = startDateTimeOfWork;
+        this.company = company;
+    }
+
     public Long getId() {
         return id;
     }
