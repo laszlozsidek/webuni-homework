@@ -78,4 +78,13 @@ public class Company {
         this.employees.add(employee);
         employee.setCompany(this);
     }
+
+    @Override
+    public String toString() {
+        return "Company: " +
+                "id=" + id +
+                ", registryNumber=" + registryNumber +
+                ", name='" + name + '\'' +
+                ", address='" + address;
+    }
 }
