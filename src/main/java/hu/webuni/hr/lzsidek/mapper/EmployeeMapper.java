@@ -11,6 +11,8 @@ public interface EmployeeMapper {
 
     List<EmployeeDto> employeesToDTOs(List<Employee> employees);
 
+    List<Employee> DTOsToEmployees(List<EmployeeDto> employees);
+
     EmployeeDto employeeToDTO(Employee employee);
 
     Employee DTOToEmployee(EmployeeDto employeeDto);

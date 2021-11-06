@@ -1,0 +1,7 @@
+package hu.webuni.hr.lzsidek.repository;
+
+import hu.webuni.hr.lzsidek.model.Company;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CompanyRepository extends JpaRepository<Company, Long> {
+}
