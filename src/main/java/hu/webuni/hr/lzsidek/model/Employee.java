@@ -11,7 +11,8 @@ public class Employee {
     @GeneratedValue
     private Long id;
     private String name;
-    private String position;
+    @ManyToOne
+    private Position position;
     private int salary;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startDateTimeOfWork;

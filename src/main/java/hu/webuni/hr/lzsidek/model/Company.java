@@ -1,5 +1,7 @@
 package hu.webuni.hr.lzsidek.model;
 
+import hu.webuni.hr.lzsidek.enums.CompanyType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,6 +19,7 @@ public class Company {
     private String address;
     @OneToMany(mappedBy = "company")
     private List<Employee> employees;
+    private CompanyType companyType;
 
     public Company() {
     }
@@ -29,7 +32,14 @@ public class Company {
         this.employees = employees;
     }
 
-    
+    public Company(Long id, int registryNumber, String name, String address, List<Employee> employees, CompanyType companyType) {
+        this.id = id;
+        this.registryNumber = registryNumber;
+        this.name = name;
+        this.address = address;
+        this.employees = employees;
+        this.companyType = companyType;
+    }
 
     public int getRegistryNumber() {
         return registryNumber;
