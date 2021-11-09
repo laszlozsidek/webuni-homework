@@ -1,36 +1,27 @@
-package hu.webuni.hr.lzsidek.model;
+package hu.webuni.hr.lzsidek.dto;
 
 import hu.webuni.hr.lzsidek.enums.MinimalEducation;
+import hu.webuni.hr.lzsidek.model.Employee;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Position {
-    @Id
-    @GeneratedValue
+public class PositionDto {
     private Long id;
     private String name;
     private MinimalEducation minimalEducation;
     private int minSalary;
-    @OneToMany(mappedBy = "position")
-    private List<Employee> employees;
+    private List<Employee> employees = new ArrayList<>();
 
-    public Position() {
+    public PositionDto() {
     }
 
-    public Position(String name) {
-        this.name = name;
-    }
-
-    public Position(Long id, String name, MinimalEducation minimalEducation, int minSalary) {
+    public PositionDto(Long id, String name, MinimalEducation minimalEducation, int minSalary, List<Employee> employees) {
         this.id = id;
         this.name = name;
         this.minimalEducation = minimalEducation;
         this.minSalary = minSalary;
+        this.employees = employees;
     }
 
     public Long getId() {
@@ -71,15 +62,5 @@ public class Position {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
-    }
-
-    @Override
-    public String toString() {
-        return "Position{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", minimalEducation=" + minimalEducation +
-                ", minSalary=" + minSalary +
-                '}';
     }
 }

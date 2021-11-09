@@ -1,8 +1,11 @@
 package hu.webuni.hr.lzsidek.web;
 
 import hu.webuni.hr.lzsidek.dto.EmployeeDto;
+import hu.webuni.hr.lzsidek.dto.PositionDto;
 import hu.webuni.hr.lzsidek.mapper.EmployeeMapper;
+import hu.webuni.hr.lzsidek.mapper.PositionMapper;
 import hu.webuni.hr.lzsidek.model.Employee;
+import hu.webuni.hr.lzsidek.model.Position;
 import hu.webuni.hr.lzsidek.repository.EmployeeRepository;
 import hu.webuni.hr.lzsidek.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,9 @@ public class EmployeeController {
 
     @Autowired
     EmployeeMapper employeeMapper;
+
+    @Autowired
+    PositionMapper positionMapper;
 
     @Autowired
     EmployeeService employeeService;
@@ -47,8 +53,8 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/search", params = "position")
-    public List<EmployeeDto> getAllByPosition(@RequestParam(name = "position") String position) {
-        return employeeMapper.employeesToDTOs(employeeRepository.findByPosition(position));
+    public List<EmployeeDto> getAllByPosition(@RequestParam(name = "position") PositionDto positionDto) {
+        return employeeMapper.employeesToDTOs(employeeRepository.findByPosition(positionMapper.DTOToPosition(positionDto)));
     }
 
     @GetMapping(value = "/search", params = "startingWith")

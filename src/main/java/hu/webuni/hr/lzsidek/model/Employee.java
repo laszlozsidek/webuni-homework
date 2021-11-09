@@ -16,21 +16,13 @@ public class Employee {
     private int salary;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime startDateTimeOfWork;
-
     @ManyToOne
     private Company company;
 
     public Employee() {
     }
 
-    public Employee(Long id, String name, String position, LocalDateTime startDateTimeOfWork) {
-        this.id = id;
-        this.name = name;
-        this.position = position;
-        this.startDateTimeOfWork = startDateTimeOfWork;
-    }
-
-    public Employee(Long id, String name, String position, LocalDateTime startDateTimeOfWork, Company company) {
+    public Employee(Long id, String name, Position position, LocalDateTime startDateTimeOfWork, Company company) {
         this.id = id;
         this.name = name;
         this.position = position;
@@ -54,11 +46,11 @@ public class Employee {
         this.name = name;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 

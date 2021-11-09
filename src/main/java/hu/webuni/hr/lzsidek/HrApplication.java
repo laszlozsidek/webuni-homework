@@ -1,8 +1,10 @@
 package hu.webuni.hr.lzsidek;
 
 import hu.webuni.hr.lzsidek.model.Employee;
+import hu.webuni.hr.lzsidek.model.Position;
 import hu.webuni.hr.lzsidek.repository.CompanyRepository;
 import hu.webuni.hr.lzsidek.repository.EmployeeRepository;
+import hu.webuni.hr.lzsidek.repository.PositionRepository;
 import hu.webuni.hr.lzsidek.service.InitDbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,6 +24,9 @@ public class HrApplication implements CommandLineRunner {
 
 	@Autowired
 	CompanyRepository companyRepository;
+
+	@Autowired
+	PositionRepository positionRepository;
 
 	@Autowired
 	EmployeeRepository employeeRepository;
@@ -51,26 +56,27 @@ public class HrApplication implements CommandLineRunner {
 //			System.out.println(salary);
 //		}
 
+		Position position = positionRepository.findAll().stream().filter(e -> e.getName().equals("CEO")).findFirst().get();
 		System.out.println(">>> 0:");
 		Pageable firstPageWithTwoElements = PageRequest.of(0, 2);
 		Pageable secondPageWithTwoElements = PageRequest.of(1, 2);
 		Pageable thirdPageWithTwoElements = PageRequest.of(3, 2);
 		System.out.println(">>> 1:");
 		Page<Employee> page1 = employeeRepository.findAll(firstPageWithTwoElements);
-		List<Employee> employeeList = employeeRepository.findByPosition("CEO", firstPageWithTwoElements);
+		List<Employee> employeeList = employeeRepository.findByPosition(position, firstPageWithTwoElements);
 		for (Employee employee : employeeList) {
 			System.out.println(employee);
 		}
 		System.out.println("Page1: " + page1);
 		System.out.println(">>> 2:");
-		List<Employee> employeeList2 = employeeRepository.findByPosition("CEO", secondPageWithTwoElements);
+		List<Employee> employeeList2 = employeeRepository.findByPosition(position, secondPageWithTwoElements);
 		Page<Employee> page2 = employeeRepository.findAll(secondPageWithTwoElements);
 		for (Employee employee : employeeList2) {
 			System.out.println(employee);
 		}
 		System.out.println("Page2: " + page2);
 		System.out.println(">>> 3:");
-		List<Employee> employeeList3 = employeeRepository.findByPosition("CEO", thirdPageWithTwoElements);
+		List<Employee> employeeList3 = employeeRepository.findByPosition(position, thirdPageWithTwoElements);
 		Page<Employee> page3 = employeeRepository.findAll(thirdPageWithTwoElements);
 		for (Employee employee : employeeList3) {
 			System.out.println(employee);

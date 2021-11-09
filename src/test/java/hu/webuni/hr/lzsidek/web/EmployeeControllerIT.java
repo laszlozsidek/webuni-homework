@@ -1,6 +1,8 @@
 package hu.webuni.hr.lzsidek.web;
 
 import hu.webuni.hr.lzsidek.dto.EmployeeDto;
+import hu.webuni.hr.lzsidek.enums.MinimalEducation;
+import hu.webuni.hr.lzsidek.model.Position;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,7 +26,7 @@ class EmployeeControllerIT {
     void testThatEmployeeIsCreatedWithValidData() throws Exception {
         List<EmployeeDto> employeesBeforeCreate = getEmployees();
 
-        EmployeeDto employeeDto = new EmployeeDto(2, "name", "position", 3, LocalDateTime.of(2012, 1, 1, 0, 0, 0));
+        EmployeeDto employeeDto = new EmployeeDto(2, "name", new Position(1L, "CEO", MinimalEducation.COLLEGE, 200000), 3, LocalDateTime.of(2012, 1, 1, 0, 0, 0));
 
         createEmployee(employeeDto);
 
@@ -37,7 +39,7 @@ class EmployeeControllerIT {
     void testThatEmployeeIsCreatedWithNotValidData() throws Exception {
         List<EmployeeDto> employeesBeforeCreate = getEmployees();
 
-        EmployeeDto employeeDto = new EmployeeDto(2, "", "position", 3, LocalDateTime.of(2012, 1, 1, 0, 0, 0));
+        EmployeeDto employeeDto = new EmployeeDto(2, "", new Position(1L, "CEO", MinimalEducation.COLLEGE, 200000), 3, LocalDateTime.of(2012, 1, 1, 0, 0, 0));
 
         webTestClient.post().uri(BASE_URI).bodyValue(employeeDto).exchange().expectStatus().isBadRequest();
 
@@ -49,7 +51,7 @@ class EmployeeControllerIT {
 
     @Test
     void testThatEmployeeIsUpdatedWithValidData() throws Exception {
-        EmployeeDto employeeDto = new EmployeeDto(2, "name", "position", 3, LocalDateTime.of(2012, 1, 1, 0, 0, 0));
+        EmployeeDto employeeDto = new EmployeeDto(2, "name", new Position(1L, "CEO", MinimalEducation.COLLEGE, 200000), 3, LocalDateTime.of(2012, 1, 1, 0, 0, 0));
 
         createEmployee(employeeDto);
 
@@ -66,7 +68,7 @@ class EmployeeControllerIT {
 
     @Test
     void testThatEmployeeIsUpdatedWithNotValidData() throws Exception {
-        EmployeeDto employeeDto = new EmployeeDto(2, "name", "position", 3, LocalDateTime.of(2012, 1, 1, 0, 0, 0));
+        EmployeeDto employeeDto = new EmployeeDto(2, "name", new Position(1L, "CEO", MinimalEducation.COLLEGE, 200000), 3, LocalDateTime.of(2012, 1, 1, 0, 0, 0));
 
         createEmployee(employeeDto);
 

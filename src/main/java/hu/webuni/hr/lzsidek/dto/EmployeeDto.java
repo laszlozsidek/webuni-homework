@@ -1,5 +1,6 @@
 package hu.webuni.hr.lzsidek.dto;
 
+import hu.webuni.hr.lzsidek.model.Position;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
@@ -12,7 +13,7 @@ public class EmployeeDto {
     @NotEmpty
     private String name;
     @NotEmpty
-    private String position;
+    private Position position;
     @Positive
     private int salary;
     @Past
@@ -22,7 +23,7 @@ public class EmployeeDto {
     public EmployeeDto() {
     }
 
-    public EmployeeDto(long id, String name, String position, int salary, LocalDateTime startDateTimeOfWork) {
+    public EmployeeDto(long id, String name, Position position, int salary, LocalDateTime startDateTimeOfWork) {
         this.id = id;
         this.name = name;
         this.position = position;
@@ -46,11 +47,11 @@ public class EmployeeDto {
         this.name = name;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 

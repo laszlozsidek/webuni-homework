@@ -1,6 +1,7 @@
 package hu.webuni.hr.lzsidek.repository;
 
 import hu.webuni.hr.lzsidek.model.Employee;
+import hu.webuni.hr.lzsidek.model.Position;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +12,8 @@ import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long>, PagingAndSortingRepository<Employee, Long> {
 
-    List<Employee> findByPosition(String position);
+//    List<Employee> findByPosition(String position);
+    List<Employee> findByPosition(Position position);
 
     List<Employee> findByNameStartingWithIgnoreCase(String startingWith);
 
@@ -19,5 +21,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>, Pagin
 
     List<Employee> findBySalaryGreaterThan(Integer minSalary);
 
-    List<Employee> findByPosition(String position, Pageable pageable);
+    List<Employee> findByPosition(Position position, Pageable pageable);
 }
