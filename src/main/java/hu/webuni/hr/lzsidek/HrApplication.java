@@ -1,5 +1,6 @@
 package hu.webuni.hr.lzsidek;
 
+import hu.webuni.hr.lzsidek.model.Company;
 import hu.webuni.hr.lzsidek.model.Employee;
 import hu.webuni.hr.lzsidek.model.Position;
 import hu.webuni.hr.lzsidek.repository.CompanyRepository;
@@ -40,21 +41,21 @@ public class HrApplication implements CommandLineRunner {
 		System.out.println("Database " + (initDbService.clearDB() ? "" : "un") + "successfully cleared.");
 		System.out.println("Database " + (initDbService.insertTestData() ? "" : "un") + "successfully filled.");
 
-//		List<Company> companyList = companyRepository.findDistinctByEmployeesSalaryGreaterThan(1000000);
-//		for (Company company : companyList) {
-//			System.out.println(company);
-//		}
+		List<Company> companyList1 = companyRepository.findDistinctByEmployeesSalaryGreaterThan(1000000);
+		for (Company company : companyList1) {
+			System.out.println(company);
+		}
 
-// 		List<Company> companyList = companyRepository.findByEmployeesSizeGreaterThan(2);
-//		for (Company company : companyList) {
-//			System.out.println(company);
-//		}
+ 		List<Company> companyList2 = companyRepository.findByEmployeesSizeGreaterThan(2);
+		for (Company company : companyList2) {
+			System.out.println(company);
+		}
 
-//		Long companyId = companyRepository.findAll().stream().filter(e -> e.getName().equals("Amazon")).findFirst().get().getId();
-//		List<Integer> salaryList = companyRepository.findByAverageSalaryGroupByPositionDesc(companyId);
-//		for (Integer salary : salaryList) {
-//			System.out.println(salary);
-//		}
+		Long companyId = companyRepository.findAll().stream().filter(e -> e.getName().equals("Amazon")).findFirst().get().getId();
+		List<Integer> salaryList = companyRepository.findByAverageSalaryGroupByPositionDesc(companyId);
+		for (Integer salary : salaryList) {
+			System.out.println(salary);
+		}
 
 		Position position = positionRepository.findAll().stream().filter(e -> e.getName().equals("CEO")).findFirst().get();
 		System.out.println(">>> 0:");
@@ -82,5 +83,7 @@ public class HrApplication implements CommandLineRunner {
 			System.out.println(employee);
 		}
 		System.out.println("Page3: " + page3);
+
+		positionRepository.setMinSalaryByPosition("CEO", 1040000);
 	}
 }
