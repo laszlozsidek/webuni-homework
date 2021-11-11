@@ -2,7 +2,6 @@ package hu.webuni.hr.lzsidek.repository;
 
 import hu.webuni.hr.lzsidek.model.Employee;
 import hu.webuni.hr.lzsidek.model.Position;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
