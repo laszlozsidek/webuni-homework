@@ -1,10 +1,11 @@
 package hu.webuni.hr.lzsidek.mapper;
 
 import hu.webuni.hr.lzsidek.dto.PositionDto;
-import hu.webuni.hr.lzsidek.dto.EmployeeDto;
 import hu.webuni.hr.lzsidek.model.Position;
-import hu.webuni.hr.lzsidek.model.Employee;
-import org.mapstruct.*;
+import org.mapstruct.IterableMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 import java.util.List;
 
@@ -15,11 +16,6 @@ public interface PositionMapper {
     PositionDto positionToDTO(Position position);
 
     Position DTOToPosition(PositionDto positionDTO);
-
-    EmployeeDto employeeToDTO(Employee employee);
-
-    @InheritInverseConfiguration
-    Employee DTOToEmployee(EmployeeDto employeeDTO);
 
     @Mapping(target = "employees", ignore = true)
     @Named("summary")

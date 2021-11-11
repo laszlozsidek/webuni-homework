@@ -16,8 +16,10 @@ public interface CompanyMapper {
 
     Company DTOToCompany(CompanyDto companyDTO);
 
+    @Mapping(target = "position", source = "position.name")
     EmployeeDto employeeToDTO(Employee employee);
 
+    @Mapping(target = "position.name", source = "position")
     Employee DTOToEmployee(EmployeeDto employeeDTO);
 
     @Mapping(target = "employees", ignore = true)
