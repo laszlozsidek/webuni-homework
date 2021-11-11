@@ -4,7 +4,6 @@ import hu.webuni.hr.lzsidek.model.Employee;
 import hu.webuni.hr.lzsidek.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
