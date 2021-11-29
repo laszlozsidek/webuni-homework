@@ -1,6 +1,7 @@
 package hu.webuni.hr.lzsidek.repository;
 
 import hu.webuni.hr.lzsidek.model.Company;
+import hu.webuni.hr.lzsidek.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +16,8 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
     List<Company> findByEmployeesSizeGreaterThan(@Param("limit") Integer limit);
 
     @Query("SELECT avg(e.salary) as salary FROM Company c JOIN Employee e ON c = e.company WHERE c.id = :companyId GROUP BY e.position ORDER By salary desc")
-    List<Integer> findByAverageSalaryGroupByPositionDesc(@Param("companyId") Long companyId);
+    List<Double> findByAverageSalaryGroupByPositionDesc(@Param("companyId") Long companyId);
 
+    @Query("SELECT DISTINCT c FROM Company c LEFT JOIN FETCH c.employees")
+    List<Company> findAllWithEmployees();
 }

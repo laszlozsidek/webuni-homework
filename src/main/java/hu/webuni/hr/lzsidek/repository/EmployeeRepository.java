@@ -3,7 +3,10 @@ package hu.webuni.hr.lzsidek.repository;
 import hu.webuni.hr.lzsidek.model.Employee;
 import hu.webuni.hr.lzsidek.model.Position;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.time.LocalDateTime;
@@ -21,4 +24,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>, Pagin
     List<Employee> findBySalaryGreaterThan(Integer minSalary);
 
     List<Employee> findByPosition(Position position, Pageable pageable);
+
+    List<Employee> findAll(Specification<Employee> spec, Sort id);
+
+    @Query("SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.company")
+    List<Employee> findAllWithCompanies();
 }

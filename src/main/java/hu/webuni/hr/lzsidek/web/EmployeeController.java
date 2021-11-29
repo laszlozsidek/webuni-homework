@@ -5,7 +5,6 @@ import hu.webuni.hr.lzsidek.dto.PositionDto;
 import hu.webuni.hr.lzsidek.mapper.EmployeeMapper;
 import hu.webuni.hr.lzsidek.mapper.PositionMapper;
 import hu.webuni.hr.lzsidek.model.Employee;
-import hu.webuni.hr.lzsidek.model.Position;
 import hu.webuni.hr.lzsidek.repository.EmployeeRepository;
 import hu.webuni.hr.lzsidek.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,8 @@ public class EmployeeController {
     @GetMapping
     public List<EmployeeDto> getAll(@RequestParam(required = false) Integer minSalary) {
         if (minSalary == null) {
-            return employeeMapper.employeesToDTOs(employeeService.findAll());
+//            return employeeMapper.employeesToDTOs(employeeService.findAll());
+            return employeeMapper.employeesToDTOs(employeeRepository.findAllWithCompanies());
         } else {
             return employeeMapper.employeesToDTOs(employeeRepository.findBySalaryGreaterThan(minSalary));
         }
@@ -72,6 +72,11 @@ public class EmployeeController {
     @GetMapping("/payRaise")
     public int getPayRaise(@RequestBody Employee employee) {
         return employeeService.getPayRaisePercent(employee);
+    }
+
+    @GetMapping("/example")
+    public List<EmployeeDto> findAllByExample(@RequestBody @Valid EmployeeDto employeeDto) {
+        return employeeMapper.employeesToDTOs(employeeService.findByExample(employeeMapper.DTOToEmployee(employeeDto)));
     }
 
     @PostMapping

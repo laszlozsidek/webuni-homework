@@ -15,6 +15,7 @@ public interface EmployeeMapper {
     List<Employee> DTOsToEmployees(List<EmployeeDto> employees);
 
     @Mapping(target = "position", source = "position.name")
+    @Mapping(target = "company", ignore = true)
     EmployeeDto employeeToDTO(Employee employee);
 
     @Mapping(target = "position.name", source = "position")

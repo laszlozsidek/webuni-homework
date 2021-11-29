@@ -18,4 +18,6 @@ public interface EmployeeService {
     Optional<Employee> findById(long id);
 
     void delete(long id);
+
+    List<Employee> findByExample(Employee example);
 }

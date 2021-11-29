@@ -5,6 +5,7 @@ import hu.webuni.hr.lzsidek.dto.EmployeeDto;
 import hu.webuni.hr.lzsidek.mapper.CompanyMapper;
 import hu.webuni.hr.lzsidek.mapper.EmployeeMapper;
 import hu.webuni.hr.lzsidek.model.Company;
+import hu.webuni.hr.lzsidek.repository.CompanyRepository;
 import hu.webuni.hr.lzsidek.service.CompanyService;
 import hu.webuni.hr.lzsidek.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
     @Autowired
+    CompanyRepository companyRepository;
+    @Autowired
     CompanyMapper companyMapper;
     @Autowired
     EmployeeMapper employeeMapper;
@@ -29,10 +32,18 @@ public class CompanyController {
 
     @GetMapping
     public List<CompanyDto> getAll(@RequestParam(required = false) Boolean full) {
-        List<Company> companies = companyService.findAll();
-        return full != null && full
-                ? companyMapper.companiesToDTOs(companies)
-                : companyMapper.companiesToDTOsWithoutEmployees(companies);
+        List<Company> companies;
+        boolean notFull = full == null || !full;
+        if (notFull) {
+            companies = companyService.findAll();
+            return companyMapper.companiesToDTOs(companies);
+        } else {
+            companies = companyRepository.findAllWithEmployees();
+            return companyMapper.companiesToDTOsWithoutEmployees(companies);
+        }
+//        return full != null && full
+//                ? companyMapper.companiesToDTOs(companies)
+//                : companyMapper.companiesToDTOsWithoutEmployees(companies);
     }
 
     @GetMapping("/{id}")
