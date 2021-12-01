@@ -1,5 +1,6 @@
 package hu.webuni.hr.lzsidek.service;
 
+import hu.webuni.hr.lzsidek.model.Company;
 import hu.webuni.hr.lzsidek.model.Employee;
 import hu.webuni.hr.lzsidek.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,8 @@ public abstract class AbstractEmployeeService implements EmployeeService {
         String position = example.getPosition().getName();
         int salary = example.getSalary();
         LocalDateTime startDateTimeOfWork = example.getStartDateTimeOfWork();
-        String company = example.getCompany().getName();
+        Company company = example.getCompany();
+        String companyName = company == null ? null : company.getName();
 
         Specification<Employee> spec = Specification.where(null);
 
@@ -75,8 +77,8 @@ public abstract class AbstractEmployeeService implements EmployeeService {
             spec = spec.and(EmployeeSpecifications.hasStartDay(startDateTimeOfWork));
         }
 
-        if (StringUtils.hasText(company)) {
-            spec = spec.and(EmployeeSpecifications.hasCompanyName(company));
+        if (StringUtils.hasText(companyName)) {
+            spec = spec.and(EmployeeSpecifications.hasCompanyName(companyName));
         }
 
         return employeeRepository.findAll(spec, Sort.by("id"));
