@@ -9,6 +9,7 @@ import hu.webuni.hr.lzsidek.repository.CompanyRepository;
 import hu.webuni.hr.lzsidek.repository.EmployeeRepository;
 import hu.webuni.hr.lzsidek.repository.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,9 @@ public class InitDbService {
 
     @Autowired
     SalaryService salaryService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public boolean clearDB() {
         employeeRepository.deleteAllInBatch();
@@ -53,8 +57,10 @@ public class InitDbService {
         c2 = companyRepository.save(c2);
         c3 = companyRepository.save(c3);
 
-        Employee emp1 = new Employee(1L, "A.Stark", p1, LocalDateTime.of(2019,4,6,0,0), c1);
-        Employee emp2 = new Employee(2L, "N.Romanoff", p2, LocalDateTime.of(2016,10,6,0,0), c1);
+        Employee emp1 = new Employee(1L, "A.Stark", p1, LocalDateTime.of(2019,4,6,0,0), c1
+            , "astark", passwordEncoder.encode("pass"));
+        Employee emp2 = new Employee(2L, "N.Romanoff", p2, LocalDateTime.of(2016,10,6,0,0), c1
+            , "nromanoff", passwordEncoder.encode("pass"));
         Employee emp3 = new Employee(3L, "S.Rogers", p1, LocalDateTime.of(2016,2,2,0,0), c1);
         Employee emp4 = new Employee(4L, "B.Banner", p3, LocalDateTime.of(2010,2,2,0,0), c2);
         Employee emp5 = new Employee(5L, "C.Barton", p4, LocalDateTime.of(2020,2,2,0,0), c3);

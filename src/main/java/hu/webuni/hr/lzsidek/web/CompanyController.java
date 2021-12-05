@@ -33,17 +33,14 @@ public class CompanyController {
     @GetMapping
     public List<CompanyDto> getAll(@RequestParam(required = false) Boolean full) {
         List<Company> companies;
-        boolean notFull = full == null || !full;
-        if (notFull) {
-            companies = companyService.findAll();
+        boolean isFull = full != null && full;
+        if (isFull) {
+            companies = companyRepository.findAllWithEmployees();
             return companyMapper.companiesToDTOs(companies);
         } else {
-            companies = companyRepository.findAllWithEmployees();
+            companies = companyService.findAll();
             return companyMapper.companiesToDTOsWithoutEmployees(companies);
         }
-//        return full != null && full
-//                ? companyMapper.companiesToDTOs(companies)
-//                : companyMapper.companiesToDTOsWithoutEmployees(companies);
     }
 
     @GetMapping("/{id}")

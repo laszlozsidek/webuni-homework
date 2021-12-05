@@ -11,6 +11,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long>, PagingAndSortingRepository<Employee, Long> {
 
@@ -29,4 +30,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>, Pagin
 
     @Query("SELECT DISTINCT e FROM Employee e LEFT JOIN FETCH e.company")
     List<Employee> findAllWithCompanies();
+
+    Optional<Employee> findByUsername(String username);
 }

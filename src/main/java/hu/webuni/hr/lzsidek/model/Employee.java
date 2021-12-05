@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Employee {
@@ -20,6 +21,15 @@ public class Employee {
     @ManyToOne
     private Company company;
 
+    @OneToMany(mappedBy = "employee")
+    private List<HolidayRequest> holidayRequests;
+
+    @ManyToOne
+    private Employee manager;
+
+    private String username;
+    private String password;
+
     public Employee() {
     }
 
@@ -29,6 +39,16 @@ public class Employee {
         this.position = position;
         this.startDateTimeOfWork = startDateTimeOfWork;
         this.company = company;
+    }
+
+    public Employee(Long id, String name, Position position, LocalDateTime startDateTimeOfWork, Company company, String username, String password) {
+        this.id = id;
+        this.name = name;
+        this.startDateTimeOfWork = startDateTimeOfWork;
+        this.position = position;
+        this.company = company;
+        this.username = username;
+        this.password = password;
     }
 
     public Long getId() {
@@ -77,6 +97,38 @@ public class Employee {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public List<HolidayRequest> getHolidayRequests() {
+        return holidayRequests;
+    }
+
+    public void setHolidayRequests(List<HolidayRequest> holidayRequests) {
+        this.holidayRequests = holidayRequests;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
