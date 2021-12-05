@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -129,6 +130,14 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void addHolidayRequest(HolidayRequest holidayRequest) {
+        if(this.holidayRequests == null)
+            this.holidayRequests = new ArrayList<>();
+
+        this.holidayRequests.add(holidayRequest);
+        holidayRequest.setEmployee(this);
     }
 
     @Override
