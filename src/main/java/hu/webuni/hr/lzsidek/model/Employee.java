@@ -42,7 +42,7 @@ public class Employee {
         this.company = company;
     }
 
-    public Employee(Long id, String name, Position position, LocalDateTime startDateTimeOfWork, Company company, String username, String password) {
+    public Employee(Long id, String name, Position position, LocalDateTime startDateTimeOfWork, Company company, String username, String password, Employee manager) {
         this.id = id;
         this.name = name;
         this.startDateTimeOfWork = startDateTimeOfWork;
@@ -50,6 +50,7 @@ public class Employee {
         this.company = company;
         this.username = username;
         this.password = password;
+        this.manager = manager;
     }
 
     public Long getId() {

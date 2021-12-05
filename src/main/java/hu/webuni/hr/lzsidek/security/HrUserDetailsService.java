@@ -20,7 +20,7 @@ public class HrUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Employee emp = employeeRepository.findByUsername(username)
-				.orElseThrow(()-> new UsernameNotFoundException(username));
+				.orElseThrow(() -> new UsernameNotFoundException(username));
 		
 		return new HrUser(username, emp.getPassword(), Arrays.asList(new SimpleGrantedAuthority("USER")), emp);
 	}

@@ -24,14 +24,14 @@ public class SmartEmployeeService extends AbstractEmployeeService {
 
         if ((monthDiff == 0 && dayDiff < 0) || monthDiff < 0)
             throw new IllegalArgumentException("Invalid StartDateTimeOfWork date");
-        if (monthDiff >= 0 && monthDiff < MONTHS * config.getYears().getYear1() || (monthDiff == MONTHS * config.getYears().getYear1() && dayDiff <= 0))
-            return config.getPercent().getPercent1();
-        if ((monthDiff >= MONTHS * config.getYears().getYear1() && monthDiff < MONTHS * config.getYears().getYear2()) || (monthDiff == MONTHS * config.getYears().getYear2() && dayDiff <= 0))
-            return config.getPercent().getPercent2();
-        if ((monthDiff >= MONTHS * config.getYears().getYear2() && monthDiff < MONTHS * config.getYears().getYear3()) || (monthDiff == MONTHS * config.getYears().getYear3() && dayDiff <= 0))
-            return config.getPercent().getPercent3();
-        if (monthDiff >= MONTHS * config.getYears().getYear3())
-            return config.getPercent().getPercent4();
+        if (monthDiff >= 0 && monthDiff < MONTHS * config.getSalary().getYears().getYear1() || (monthDiff == MONTHS * config.getSalary().getYears().getYear1() && dayDiff <= 0))
+            return config.getSalary().getPercent().getPercent1();
+        if ((monthDiff >= MONTHS * config.getSalary().getYears().getYear1() && monthDiff < MONTHS * config.getSalary().getYears().getYear2()) || (monthDiff == MONTHS * config.getSalary().getYears().getYear2() && dayDiff <= 0))
+            return config.getSalary().getPercent().getPercent2();
+        if ((monthDiff >= MONTHS * config.getSalary().getYears().getYear2() && monthDiff < MONTHS * config.getSalary().getYears().getYear3()) || (monthDiff == MONTHS * config.getSalary().getYears().getYear3() && dayDiff <= 0))
+            return config.getSalary().getPercent().getPercent3();
+        if (monthDiff >= MONTHS * config.getSalary().getYears().getYear3())
+            return config.getSalary().getPercent().getPercent4();
         return -1;
     }
 }

@@ -58,26 +58,33 @@ public class InitDbService {
         c3 = companyRepository.save(c3);
 
         Employee emp1 = new Employee(1L, "A.Stark", p1, LocalDateTime.of(2019,4,6,0,0), c1
-            , "astark", passwordEncoder.encode("pass"));
-        Employee emp2 = new Employee(2L, "N.Romanoff", p2, LocalDateTime.of(2016,10,6,0,0), c1
-            , "nromanoff", passwordEncoder.encode("pass"));
-        Employee emp3 = new Employee(3L, "S.Rogers", p1, LocalDateTime.of(2016,2,2,0,0), c1);
-        Employee emp4 = new Employee(4L, "B.Banner", p3, LocalDateTime.of(2010,2,2,0,0), c2);
-        Employee emp5 = new Employee(5L, "C.Barton", p4, LocalDateTime.of(2020,2,2,0,0), c3);
-        Employee emp6 = new Employee(6L, "N.Fury", p1, LocalDateTime.of(2017,2,2,0,0), c3);
-
+            , "astark", passwordEncoder.encode("pass"), null);
         salaryService.setSalaryOfNewEmployee(emp1);
-        salaryService.setSalaryOfNewEmployee(emp2);
-        salaryService.setSalaryOfNewEmployee(emp3);
-        salaryService.setSalaryOfNewEmployee(emp4);
-        salaryService.setSalaryOfNewEmployee(emp5);
-        salaryService.setSalaryOfNewEmployee(emp6);
+        Employee savedEmp1 = employeeRepository.save(emp1);
 
-        employeeRepository.save(emp1);
+        Employee emp2 = new Employee(2L, "N.Romanoff", p2, LocalDateTime.of(2016,10,6,0,0), c1
+            , "nromanoff", passwordEncoder.encode("pass"), savedEmp1);
+        salaryService.setSalaryOfNewEmployee(emp2);
         employeeRepository.save(emp2);
+
+        Employee emp3 = new Employee(3L, "S.Rogers", p1, LocalDateTime.of(2016,2,2,0,0), c1
+            , "srogers", passwordEncoder.encode("pass"), savedEmp1);
+        salaryService.setSalaryOfNewEmployee(emp3);
         employeeRepository.save(emp3);
+
+        Employee emp4 = new Employee(4L, "B.Banner", p3, LocalDateTime.of(2010,2,2,0,0), c2
+                , "bbanner", passwordEncoder.encode("pass"), null);
+        salaryService.setSalaryOfNewEmployee(emp4);
         employeeRepository.save(emp4);
-        employeeRepository.save(emp5);
+
+        Employee emp5 = new Employee(5L, "C.Barton", p4, LocalDateTime.of(2020,2,2,0,0), c3
+                , "cbarton", passwordEncoder.encode("pass"), null);
+        salaryService.setSalaryOfNewEmployee(emp5);
+        Employee savedEmp5 = employeeRepository.save(emp5);
+
+        Employee emp6 = new Employee(6L, "N.Fury", p1, LocalDateTime.of(2017,2,2,0,0), c3
+                , "nfury", passwordEncoder.encode("pass"), savedEmp5);
+        salaryService.setSalaryOfNewEmployee(emp6);
         employeeRepository.save(emp6);
 
         return !(employeeRepository.findAll().isEmpty() || companyRepository.findAll().isEmpty() || positionRepository.findAll().isEmpty());

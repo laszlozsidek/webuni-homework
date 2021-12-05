@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,4 +34,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>, Pagin
     List<Employee> findAllWithCompanies();
 
     Optional<Employee> findByUsername(String username);
+
+    @Query("SELECT e FROM Employee e WHERE e.manager.id = :managerId")
+    List<Employee> findByManager(@Param("managerId") Long managerId);
 }

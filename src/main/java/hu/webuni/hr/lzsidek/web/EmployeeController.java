@@ -74,6 +74,12 @@ public class EmployeeController {
         return employeeService.getPayRaisePercent(employee);
     }
 
+    @GetMapping("/manager/{id}")
+    public List<EmployeeDto> getAllByManagerId(@PathVariable long id) {
+        return employeeMapper.employeesToDTOs(employeeRepository.findByManager(id));
+    }
+
+
     @PostMapping("/example")
     public List<EmployeeDto> findAllByExample(@RequestBody EmployeeDto example) {
         return employeeMapper.employeesToDTOs(employeeService.findByExample(employeeMapper.DTOToEmployee(example)));

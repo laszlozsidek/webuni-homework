@@ -33,3 +33,14 @@ hr:
       percent2: 2
       percent3: 5
       percent4: 10
+  jwt:
+    secret: mysecret
+    algorithm: HMAC256
+    expiresInMinutes: 2
+    issuer: HrApp
+
+logging:
+  level:
+    org:
+      springframework:
+        security: debug
